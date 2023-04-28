@@ -3,8 +3,18 @@ pub mod read_data {
     use std::io::BufReader;
     use std::io::BufRead;
     use regex::Regex;
+    #[derive(Debug)]
+    pub struct Node {
+        pub name: String,
+        pub betweenness: f32,
+    }
+    #[derive(Debug)]
+    pub struct fMRI_graph {
+        pub nodes: Vec<Node>,
+        pub edges: Vec<Vec<f64>>,
+    }
 
-    pub fn connectivity_matrix(path: &str) -> Vec<Vec<f64>>{
+    pub fn read_connectivity_matrix(path: &str) -> Vec<Vec<f64>>{
         let file = File::open(path).unwrap();
         let reader = BufReader::new(file);
         let mut conn_matrix: Vec<Vec<f64>> = vec![];
@@ -30,4 +40,18 @@ pub mod read_data {
         }
         return num * 10_f64.powf(exp);
     }
+    pub fn read_node_names(path: &str) -> Vec<Node> {
+        let file = File::open(path).unwrap();
+        let reader = BufReader::new(file);
+        let mut names_vec: Vec<Node> = vec![];
+        for line in reader.lines() {
+            let node = Node {
+                name: line.unwrap(),
+                betweenness: 0.0,
+            };
+            names_vec.push(node);
+        }
+        return names_vec;
+    }
+    
 }

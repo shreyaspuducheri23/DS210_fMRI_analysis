@@ -16,7 +16,7 @@ fn test_sci_to_float() {
 #[test]
 fn test_dimensions_of_conn_matrix() {
     // dimensions of this matrix should be 190 x 190
-    let matrix = read_data::connectivity_matrix(r"data\case 1\ADHD200_CC200_KKI_1842819_connectmat.txt");
+    let matrix = read_data::read_connectivity_matrix(r"data\case 1\ADHD200_CC200_KKI_1842819_connectmat.txt");
     
     let rows = matrix.len();
     let columns = matrix[0].len();
@@ -25,7 +25,10 @@ fn test_dimensions_of_conn_matrix() {
     assert_eq!(columns, 190);
 }
 fn main() {
-    let conn_matrix = read_data::connectivity_matrix(r"data\case 1\ADHD200_CC200_KKI_1842819_connectmat.txt");
-
+    let graph = read_data::fMRI_graph {
+        nodes: read_data::read_node_names(r"data\case 1\ADHD200_CC200_KKI_1842819_region_names.txt"),
+        edges: read_data::read_connectivity_matrix(r"data\case 1\ADHD200_CC200_KKI_1842819_connectmat.txt"),
+    };
+    println!("{:?}", graph.nodes);
 
 }
