@@ -1,6 +1,7 @@
 mod preprocessing;
-
+mod clustering;
 use crate::preprocessing::*;
+use crate::clustering::*;
 
 #[test]
 fn test_sci_to_float() {
@@ -25,10 +26,19 @@ fn test_dimensions_of_conn_matrix() {
     assert_eq!(columns, 190);
 }
 fn main() {
+    /*
     let graph = read_data::fMRI_graph {
         nodes: read_data::read_node_names(r"data\case 1\ADHD200_CC200_KKI_1842819_region_names.txt"),
-        edges: read_data::read_connectivity_matrix(r"data\case 1\ADHD200_CC200_KKI_1842819_connectmat.txt"),
+        adjacency_matrix: read_data::read_connectivity_matrix(r"data\case 1\ADHD200_CC200_KKI_1842819_connectmat.txt"),
     };
-    println!("{:?}", graph.nodes);
-
+    let mut Clusters: Vec<Vec<read_data::Node>> = graph.nodes.iter().map(|item| vec![item.clone()]).collect();
+    while Clusters.len() != 8 {
+        //println!("{:?}", Clusters);
+        //println!("");
+        //println!("");
+        agglomerative_clustering::merge(& mut Clusters, &graph);
+    }
+    */
+    let data=vec![(0.3,2.5,5.4), (4.6,2.4,9.2)];
+    visualization::figure_3D(data)
 }

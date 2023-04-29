@@ -4,14 +4,24 @@ pub mod read_data {
     use std::io::BufRead;
     use regex::Regex;
     #[derive(Debug)]
+    #[derive(Clone)]
+    #[derive(PartialEq)]
     pub struct Node {
+        pub node_idx: usize,
         pub name: String,
-        pub betweenness: f32,
+        //pub betweenness: Option<f32>,
+        pub loc: Option<(f32,f32,f32)>,
     }
     #[derive(Debug)]
     pub struct fMRI_graph {
         pub nodes: Vec<Node>,
-        pub edges: Vec<Vec<f64>>,
+        pub adjacency_matrix: Vec<Vec<f64>>,
+    }
+
+    impl fMRI_graph {
+        pub fn get_adjacency_matrix(&self) -> &Vec<Vec<f64>> {
+            &self.adjacency_matrix
+        }
     }
 
     pub fn read_connectivity_matrix(path: &str) -> Vec<Vec<f64>>{
@@ -44,10 +54,12 @@ pub mod read_data {
         let file = File::open(path).unwrap();
         let reader = BufReader::new(file);
         let mut names_vec: Vec<Node> = vec![];
-        for line in reader.lines() {
+        for (idx, line) in reader.lines().enumerate() {
             let node = Node {
+                node_idx: idx,
                 name: line.unwrap(),
-                betweenness: 0.0,
+                //betweenness: None,
+                loc: None,
             };
             names_vec.push(node);
         }
