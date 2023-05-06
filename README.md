@@ -26,7 +26,13 @@ This Rust project consists of several modules and tests to perform agglomerative
 3. Build and run the project: Navigate to the project directory, and run the project using cargo run command. This command will build and compile the project and generate a binary file in the target/debug directory.
 
 ## Output
-The output of the code includes 4 visualizations of the identified primary functional brain regions. Each of the identified primary functional brain regions are shown in different colors. The output also includes a text file that lists the identified primary functional brain regions. The 8 identified brain regions are as follows, along with possible interpretations listed alongside each of the brain regions: 
+The output of the code includes 4 visualizations of the identified primary functional brain regions. Each of the identified primary functional brain regions are shown in different colors. The following images can be found in /results/images
+![8_left](https://user-images.githubusercontent.com/103334331/236632909-e1dd11b2-e202-46f9-8397-e2c8e2bdae67.png)
+![8_right](https://user-images.githubusercontent.com/103334331/236632910-09ba3b68-76c5-4563-8140-d73363d56ff6.png)
+![8_front](https://user-images.githubusercontent.com/103334331/236632914-ffb66ec5-0337-4666-8b37-b073c9321a7b.png)
+![8_rear](https://user-images.githubusercontent.com/103334331/236632919-83381174-d31f-4721-824f-b5c6a8ba2169.png)
+
+The output also includes a text file that lists the identified primary functional brain regions. The 8 identified brain regions are as follows, along with possible interpretations listed alongside each of the brain regions: 
 
  ### Region 1: Visual  processing and object recognition
 > ["Right Lateral Occipital Cortex inferior division"]
