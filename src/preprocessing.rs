@@ -3,13 +3,10 @@ pub mod read_data {
     use std::io::BufReader;
     use std::io::BufRead;
     use regex::Regex;
-    #[derive(Debug)]
-    #[derive(Clone)]
-    #[derive(PartialEq)]
+    #[derive(Debug, PartialEq, Clone)]
     pub struct Node {
-        pub node_idx: usize,
+        pub node_idx: usize, //The index of the node is necessary to index into the adjacency matrix
         pub name: String,
-        //pub betweenness: Option<f32>,
         pub loc: Option<(f64,f64,f64)>,
     }
     #[derive(Debug)]
@@ -24,7 +21,23 @@ pub mod read_data {
         }
     }
 
+    impl Node {
+        pub fn find_parent_cluster(&self, clusters: &Vec<Vec<Node>>) -> Option<usize> {
+            // Identifies the index of the cluster to which the node belongs
+            let mut parent_cluster_idx: Option<usize> = None;
+            while parent_cluster_idx == None {
+                for (idx, cluster) in clusters.iter().enumerate() {
+                    if cluster.contains(&self) {
+                        parent_cluster_idx = Some(idx);
+                    }
+                }
+            }
+            return parent_cluster_idx;
+        }
+    }
+
     pub fn read_connectivity_matrix(path: &str) -> Vec<Vec<f64>>{
+        //reads a connectivity matrix at the specified filepath and returns an 2D vec
         let file = File::open(path).unwrap();
         let reader = BufReader::new(file);
         let mut conn_matrix: Vec<Vec<f64>> = vec![];
@@ -41,6 +54,8 @@ pub mod read_data {
         conn_matrix
     }
     pub fn sci_to_float(scientific: &str) -> f64 {
+        // the edge weights are represented in scientific notation
+        // this function reads a number in scientific notation, and returns it as an f64
         let pattern = Regex::new(r"(\d+(\.\d+)?)e([+-]?\d+)").unwrap();
         let mut num: f64 = 0.0;
         let mut exp: f64 = 0.0;
@@ -51,6 +66,7 @@ pub mod read_data {
         return num * 10_f64.powf(exp);
     }
     pub fn read_node_names(path: &str) -> Vec<Node> {
+        //reading the names of each brain region and returning a vector of vertex names
         let file = File::open(path).unwrap();
         let reader = BufReader::new(file);
         let mut names_vec: Vec<Node> = vec![];
@@ -58,7 +74,6 @@ pub mod read_data {
             let node = Node {
                 node_idx: idx,
                 name: line.unwrap(),
-                //betweenness: None,
                 loc: None,
             };
             names_vec.push(node);
@@ -67,6 +82,7 @@ pub mod read_data {
     }
 
     pub fn read_node_centers (path: &str, graph: &mut fMRI_graph) {
+        //reads the (x,y,z) coordinates of each brain region and updates the fMRI_graph data structure with this info
         let file = File::open(path).unwrap();
         let reader = BufReader::new(file);
         for (idx, line) in reader.lines().enumerate() {
@@ -80,16 +96,17 @@ pub mod read_data {
     }
 
     pub fn average_matrices(matrices: &Vec<Vec<Vec<f64>>>) -> Vec<Vec<f64>> {
-        let mut average_matrix: Vec<Vec<f64>> = vec![vec![0.0; 190]; 190];
+        // averages multiple 2d vectors and returns this average 2d vec
+        let mut average_matrix: Vec<Vec<f64>> = vec![vec![0.0; matrices[0].len()]; matrices[0].len()];
 
         for matrix in matrices {
-            for i in 0..190 {
-                for j in 0..190 {average_matrix[i][j] += matrix[i][j];}
+            for i in 0..matrices[0].len() {
+                for j in 0..matrices[0].len() {average_matrix[i][j] += matrix[i][j];}
             }
         }
 
-        for i in 0..190 {
-            for j in 0..190 {
+        for i in 0..matrices[0].len() {
+            for j in 0..matrices[0].len() {
                 average_matrix[i][j] /= (matrices.len() as f64);
             }
         }
