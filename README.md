@@ -38,7 +38,7 @@ The output also includes a text file, which can be found at `/results/brain_regi
  ### Region 2: Vital funcitons, such as breathing, heart rate, conciousness
 > ["Brain-Stem", "Brain-Stem", "Cerebellum Vermis IX", "Brain-Stem"]
 
- ### Region 3: Visual provessing
+ ### Region 3: Visual processing
 > ["Left Occipital Pole", "Right Occipital Pole", "Right Occipital Pole", "Left Occipital Pole", "Right Occipital Fusiform Gyrus", "Left Occipital Fusiform Gyrus", "Right Intracalcarine Cortex", "Left Occipital Pole", "Left Lingual Gyrus", "Right Lingual Gyrus"]
 
  ### Region 4: Language, sensory, and emotional processing and some motor control functions
