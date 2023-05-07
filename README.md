@@ -2,10 +2,11 @@
 This project aims to analyze brain functional MRI (fMRI) connectivity data using graph theory. Specifically, the project uses the USC Multimodal Connectivity Database, which contains preprocessed and organized connectivity matrices that represent the functional connectivity between different regions of the brain during various tasks. The project implements agglomerative clustering based on average neighboring cluster correlations to identify primary functional brain regions.
 
 ## Dataset Description
-The USC Multimodal Connectivity Database contains brain imaging data from healthy and clinical populations. The fMRI connectivity graph data in this dataset is preprocessed and organized into connectivity matrices, which represent the functional connectivity between different regions of the brain during various tasks. The dataset also includes brain region labels for each vertex and 3-D coordinates for each vertex.
+The USC Multimodal Connectivity Database contains brain imaging data from healthy and clinical populations. The fMRI connectivity graph data in this dataset is preprocessed and organized into connectivity matrices, which represent the functional connectivity between different regions of the brain during various tasks. The dataset also includes brain region labels for each vertex and 3-D coordinates for each vertex. The data was retrieved from http://umcd.humanconnectomeproject.org/umcd/default/index, and the 6 cases selected for this analysis were from the ADHD200_CC200 study cohort. The network IDs for these 6 cases are as follows: KKI_2371032, KKI_2026113, KKI_3434578, KKI_8628223, KKI_1623716, and KKI_1594156.
 
 ## Graph Representation
-The fMRI connectivity data is represented as a weighted graph, where vertices represent different 3x3x3mm voxels of the brain, and edge weights represent the strength of the correlation in functional activity between vertices. For this project, an average correlation matrix was constructed from the correlation matrices of 6 subjects from the USC Multimodal Connectivity Database.
+The fMRI connectivity data is represented as a weighted graph, where vertices represent different 3x3x3mm voxels of the brain, and edge weights represent the strength of the correlation in functional activity between vertices. For this project, an average correlation matrix was constructed from the correlation matrices of 
+subjects from the USC Multimodal Connectivity Database. The total number of vertices across all 6 cases was 1140, satisfying the project criteria of 1000+ vertices.
 
 ## Running the Code
 
@@ -14,16 +15,15 @@ This Rust project consists of several modules and tests to perform agglomerative
 ### To run the tests, follow these steps:
 
 1. Install Rust and the Rust package manager, Cargo, on your computer by following the instructions on the official Rust website: https://www.rust-lang.org/tools/install.
-2. Clone or download the project from its repository.
-3. Navigate to the root directory of the project.
-4. In a terminal, run the command cargo test. This command will compile the project and run all the tests in the main.rs file.
+2. Clone or download the project from this repository.
+3. Build the project and run the tests: Navigate to the root directory of the project and run the command `cargo test`. This command will compile the project and run all the tests in the main.rs file.
 
 
 ### To run the project, follow these steps:
 
-1. Install Rust and the Rust package manager, Cargo: First, you need to install Rust on your machine. You can download it from the official Rust website at https://www.rust-lang.org/tools/install.
-2. Clone the repository: Clone the repository to your local machine.
-3. Build and run the project: Navigate to the project directory, and run the project using cargo run command. This command will build and compile the project and generate a binary file in the target/debug directory.
+1. Install Rust and the Rust package manager, Cargo, on your computer by following the instructions on the official Rust website: https://www.rust-lang.org/tools/install.
+2. Clone or download the project from this repository.
+3. Build and run the project: Navigate to the project directory, and run the project using `cargo run` command. This command will build and compile the project and generate a binary file in the target/debug directory. For faster run times use `cargo run --release`.
 
 ## Output
 The output of the code includes 4 visualizations of the identified primary functional brain regions. Each of the identified primary functional brain regions are shown in different colors. The following images can be found in `/results/images`
@@ -59,3 +59,9 @@ The output also includes a text file, which can be found at `/results/brain_regi
 
 ## Conclusion
 This project demonstrates the use of graph theory to analyze brain fMRI connectivity data. The agglomerative clustering approach implemented in the code identifies primary functional brain regions based on average neighboring cluster correlations. The results of this analysis provide insight into the functional connectivity of the brain, which can be useful in understanding brain function.
+
+## Additional sources
+
+https://plotters-rs.github.io/book/basic/draw_3d_plots.html
+https://www.datanovia.com/en/lessons/agglomerative-hierarchical-clustering/
+http://umcd.humanconnectomeproject.org/umcd/default/index
